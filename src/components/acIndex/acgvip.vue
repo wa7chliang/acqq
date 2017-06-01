@@ -78,7 +78,7 @@
                         .cover-dark{
                             width: 100%;
                             height:100%;
-                            background:url("../../common/images/drak.png")no-repeat;
+                            background:url("../../common/images/drak.png") round;
                             -webkit-background-size:8.6rem 5.2rem;
                             background-size:8.6rem 5.2rem;
                             position: absolute;

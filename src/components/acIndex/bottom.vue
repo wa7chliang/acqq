@@ -116,6 +116,7 @@
     /*//底部结束*/
     /*//app引导语开始*/
     .app{
+        width: 100%;
         position: fixed;
         bottom: 0;
         left: 0;
@@ -131,6 +132,7 @@
     }
     /*//app引导语结束*/
     .app-fill{
+        width: 100%;
         visibility: hidden;
     }
 </style>
