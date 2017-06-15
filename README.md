@@ -8,6 +8,7 @@
 * vue-resource
 * vue-route
 * vuex
+* mint-ui
 * swiper
 * less
 * webpack
@@ -31,6 +32,10 @@ npm run dev
 ![2.gif](https://github.com/wa7chliang/acqq/blob/master/gitimg/show02.gif)
 
 ![3.gif](https://github.com/wa7chliang/acqq/blob/master/gitimg/show03.gif)
+
+### 更新
+
+* 使用vuex更新登录界面跳转
 
 ### 最后
 
