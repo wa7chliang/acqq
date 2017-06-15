@@ -47,7 +47,7 @@
                         </a>
                     </li>
                 </ul>
-                <a href="#" class="my-btn"></a>
+                <router-link class="my-btn" :to="{path:''+isLogin}"></router-link>
             </div>
         </div>
     </div>
@@ -59,7 +59,8 @@ import {mapGetters,mapActions} from 'vuex';
 export default {
   name: 'inheader',
   computed:mapGetters([
-      'show'
+      'show',
+      'isLogin'
   ]),
   methods:mapActions([
       'ale'

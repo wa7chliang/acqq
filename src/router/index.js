@@ -5,6 +5,8 @@ import Comic from '@/components/comic/comic1'
 import dev from '@/components/comic/dev'
 import menu from '@/components/comic/menu'
 import tall from '@/components/comic/tall'
+import login from '@/components/login/login'
+import mymsg from '@/components/mymsg/mymsg'
 
 Vue.use(Router)
 
@@ -86,6 +88,14 @@ export default new Router({
           component:tall
         }
       ]
+    },
+    {
+      path:'/login',
+      component:login
+    },
+    {
+      path:'/mymsg',
+      component:mymsg
     }
   ],
   linkActiveClass: 'active'
