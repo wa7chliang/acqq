@@ -60,10 +60,12 @@ export default {
       }
   },
   created(){
-    this.$http.get('/api/acindex').then((rep)=>{
+    this.$http.get('/api/acindex?req=1').then((rep)=>{
         rep = rep.body;
-        if(rep.mes == 1){
+        if(rep.isSuccess){
             this.item = rep.data;
+        } else {
+            console.log(rep.msg);
         }
     });
   }

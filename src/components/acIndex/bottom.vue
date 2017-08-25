@@ -70,11 +70,13 @@
             }
         },
         created(){
-           this.$http.get('/api/acindex').then((rep)=>{
+           this.$http.get('/api/acindex?req=1').then((rep)=>{
                 rep = rep.body;
-                if(rep.mes == 1){
+                if(rep.isSuccess){
                     this.item = rep.data.bottom.day;
                     this.newitem = rep.data.bottom.new;
+                } else {
+                    console.log(rep.msg);
                 }
             });
         }

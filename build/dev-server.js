@@ -33,10 +33,17 @@ var Comic005 = appData.Comic005;
 
 var apiRoutes = express.Router();
 apiRoutes.get('/acindex',(req,res)=>{
-  res.json({
-    mes:1,
-    data:acindex
-  });
+  if(req.query.req == 1) {
+    res.json({
+      isSuccess : true,
+      data : acindex
+    });
+  } else {
+    res.json({
+      isSuccess : false,
+      msg: "请求错误"
+    });
+  }
 });
 
 apiRoutes.get('/000',(req,res)=>{

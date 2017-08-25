@@ -1,4 +1,33 @@
 {
+  "indexHeaderNav": {
+    "data":[
+      {
+        "name":"首页",
+        "icon":"index"
+      },
+      {
+        "name":"收藏",
+        "icon":"col"        
+      },
+      {
+        "name":"历史",
+        "icon":"his"        
+      },
+      {
+        "name":"分类",
+        "icon":"asso"        
+      },
+      {
+        "name":"排行",
+        "icon":"rank"                
+      },
+      {
+        "name":"追更",
+        "icon":"run"                    
+      }
+    ]
+  },
+
   "acindex":{
     "con1":[{
       "title":"从前有座灵剑山",
