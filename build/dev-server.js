@@ -11,6 +11,7 @@ var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
+var axios = require('axios')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -32,6 +33,22 @@ var Comic004 = appData.Comic004;
 var Comic005 = appData.Comic005;
 
 var apiRoutes = express.Router();
+//测试代理
+apiRoutes.get('/recommendList',(req,res) =>{
+  var url = 'http://m.ac.qq.com/Recommend/get/';
+  axios.get(url, {
+    headers:{
+      referer:'http://m.ac.qq.com/',
+      host: 'm.ac.qq.com'
+    },
+    params: req.query
+  }).then((responent) =>{
+    res.json(responent.data)
+  }).catch((e) =>{
+    console.log(e);
+  })
+})
+
 apiRoutes.get('/acindex',(req,res)=>{
   if(req.query.req == 1) {
     res.json({

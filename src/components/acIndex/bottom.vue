@@ -62,17 +62,17 @@
 
 <script>
     export default {
-        name:'bottom',
-        data(){
+        name: 'bottom',
+        data() {
             return {
-                item:{},
-                newitem:{}
+                item: {},
+                newitem: {}
             }
         },
-        created(){
-           this.$http.get('/api/acindex?req=1').then((rep)=>{
+        created() {
+            this.$http.get('/api/acindex?req=1').then((rep) => {
                 rep = rep.body;
-                if(rep.isSuccess){
+                if (rep.isSuccess) {
                     this.item = rep.data.bottom.day;
                     this.newitem = rep.data.bottom.new;
                 } else {
