@@ -5,7 +5,7 @@
 ### 项目技术框架
 * vue2.0
 * vue-cli
-* vue-resource
+* axios
 * vue-route
 * vuex
 * mint-ui
@@ -37,6 +37,7 @@ npm run dev
 
 * 使用vuex更新登录界面跳转
 * 更改请求属性,按照标准传值
+* 使用axios替换vue-resource node服务器代理腾讯动漫接口数据,node简单爬虫抓取详情页信息
 
 ### 计划
 * 使用前后端分离模式重构此项目
