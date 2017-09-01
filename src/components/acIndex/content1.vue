@@ -1,77 +1,77 @@
 <template>
-	<div>
-		<section class="recommend">
-			<h2 class="sub-title">
-				<div class="title-content tc-recommend"></div>
-				<a href="#" class="more"></a>
-			</h2>
-			<ul class="re-item" id="re-item">
-				<li class="re-item-li" v-for="(value,index) in recommonList">
-					<router-link :to="{path: '/comic/'+ index + '/dev'}">
-						<div class="img-cov">
-							<img :src="value.cover_url" class="r-img" alt="">
-						</div>
-						<div class="img-cont">
-							<strong class="cont-title">{{value.title}}</strong>
-							<small class="cont-con">{{value.short_desc}}</small>
-						</div>
-					</router-link>
-				</li>
-			</ul>
-		</section>
-		<!--每日一推-->
-		<section class="day-rec">
-			<h2 class="sub-title">
-				<div class="title-content day-recommecd"></div>
-				<a class="more"></a>
-			</h2>
-			<div class="day-rec-box">
-				<a href="#" class="img-box">
-					<img src="../../common/images/dayRec.jpg" class="box-img" alt="">
-				</a>
-				<a href="#" class="rec-title">
-					<span class="text">我男友是林黛玉</span>
-					<small class="artist">作者：糖小兔</small>
-				</a>
-			</div>
-		</section>
-	</div>
+    <div>
+        <section class="recommend">
+            <h2 class="sub-title">
+                <div class="title-content tc-recommend"></div>
+                <a href="#" class="more"></a>
+            </h2>
+            <ul class="re-item" id="re-item">
+                <li class="re-item-li" v-for="(value,index) in recommonList">
+                    <router-link :to="{path: '/comic/dev/'+ value.id}">
+                        <div class="img-cov">
+                            <img :src="value.cover_url" class="r-img" alt="">
+                        </div>
+                        <div class="img-cont">
+                            <strong class="cont-title">{{value.title}}</strong>
+                            <small class="cont-con">{{value.short_desc}}</small>
+                        </div>
+                    </router-link>
+                </li>
+            </ul>
+        </section>
+        <!--每日一推-->
+        <section class="day-rec">
+            <h2 class="sub-title">
+                <div class="title-content day-recommecd"></div>
+                <a class="more"></a>
+            </h2>
+            <div class="day-rec-box">
+                <a href="#" class="img-box">
+                    <img src="../../common/images/dayRec.jpg" class="box-img" alt="">
+                </a>
+                <a href="#" class="rec-title">
+                    <span class="text">我男友是林黛玉</span>
+                    <small class="artist">作者：糖小兔</small>
+                </a>
+            </div>
+        </section>
+    </div>
 </template>
 
 <script>
-	import { mapGetters, mapActions } from 'vuex';
-	import Recommend from '../../common/api/recommend';
+    import { mapGetters, mapActions } from 'vuex';
+    import Recommend from '../../common/api/recommend';
 
-	export default {
-		name: 'incontent1',
-		props: {
-			acindex: {
-				type: Object
-			}
-		},
-		computed: mapGetters([
+    export default {
+        name: 'incontent1',
+        props: {
+            acindex: {
+                type: Object
+            }
+        },
+        computed: mapGetters([
 
-		]),
-		methods: {
+        ]),
+        methods: {
 			...mapActions([
 				'liClick'
 			]),
-			//使用代理得到腾讯动漫无良推荐内容
-			getList() {
-				Recommend('/api/recommendList', { num: 6, adpos: 910, t: 1504079863906 }).then((res) => {
-					this.recommonList = res.data.list.slice(0);
-				})
-			},
-		},
-		data() {
-			return {
-				recommonList: []
-			}
-		},
-		created() {
-			this.getList();
-		}
-	}
+            //使用代理得到腾讯动漫无良推荐内容
+            getList() {
+                Recommend('/api/recommendList', { num: 6, adpos: 910, t: 1504079863906 }).then((res) => {
+                    this.recommonList = res.data.list.slice(0);
+                })
+            },
+        },
+        data() {
+            return {
+                recommonList: []
+            }
+        },
+        created() {
+            this.getList();
+        }
+    }
 </script>
 
 <style lang="less">

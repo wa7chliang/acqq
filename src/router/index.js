@@ -11,6 +11,7 @@ import mymsg from '@/components/mymsg/mymsg'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -72,20 +73,20 @@ export default new Router({
       ]
     },
     {
-      path:'/comic/0',
+      path:'/comic',
       component: Comic,
       children:[
         {
-          path:'/comic/:num/dev',
-          component:dev
+          path:'/comic/dev/:num',
+          component:(resolve) =>require(['@/components/comic/dev'],resolve)
         },
         {
-          path:'/comic/:num/menu',
-          component:menu
+          path:'/comic/menu/:num',
+          component:(resolve) =>require(['@/components/comic/menu'],resolve)
         },
         {
-          path:'/comic/:num/tall',
-          component:tall
+          path:'/comic/tall/:num',
+          component:(resolve) =>require(['@/components/comic/tall'],resolve)
         }
       ]
     },

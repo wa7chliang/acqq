@@ -12,6 +12,7 @@ var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 var axios = require('axios')
+var cheerio = require('cheerio')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -33,7 +34,8 @@ var Comic004 = appData.Comic004;
 var Comic005 = appData.Comic005;
 
 var apiRoutes = express.Router();
-//测试代理
+
+//代理获取列表
 apiRoutes.get('/recommendList',(req,res) =>{
   var url = 'http://m.ac.qq.com/Recommend/get/';
   axios.get(url, {
@@ -48,6 +50,43 @@ apiRoutes.get('/recommendList',(req,res) =>{
     console.log(e);
   })
 })
+//使用爬虫获取详情页面详细信息
+apiRoutes.get('/recommendLi',(req,res) =>{
+  var url = 'http://m.ac.qq.com/comic/index/id/'+ req.query.id;
+  axios.get(url).then((responent) =>{
+    var $ = cheerio.load(responent.data);
+    var obj = {}
+    obj.title = $('.top-title')[0].children[0].data
+    obj.img = $('.head-info-cover>img')[0].attribs.src
+    obj.grade = $('.head-info-grade')[0].children[0].data
+    obj.author = $('.head-info-author')[0].children[0].data
+    obj.number = $('.info-number')[0].children[0].data
+    obj.summary = $('.detail-summary>p')[0].children[0].data
+    obj.time = $('.comicList-info-time')[0].children[0].data
+    obj.update = $('.comicList-info-update')[0].children[0].data
+    obj.tags = []
+    for(var i = 0; i<$('.head-info-tags>span').length;i++) {
+      obj.tags.push($('.head-info-tags>span')[i].children[0].data)
+    }
+    res.json(obj)
+  })
+})
+//获取月票信息代理
+apiRoutes.get('/getMonthTicketInfo',(req,res) =>{
+  var url = 'http://m.ac.qq.com/comic/getMonthTicketInfo'
+  axios.get(url, {
+    headers:{
+      referer:'http://m.ac.qq.com/',
+      host: 'm.ac.qq.com'
+    },
+    params: req.query
+  }).then((responent) =>{
+    res.json(responent.data)    
+  }).catch((e) =>{
+    console.log(e);
+  })
+})
+
 
 apiRoutes.get('/acindex',(req,res)=>{
   if(req.query.req == 1) {

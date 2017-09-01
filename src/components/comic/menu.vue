@@ -1,19 +1,19 @@
 <template>
     <div>
-       <section class="menu-sec1">
+        <section class="menu-sec1">
             <div class="btn_payVip">
                 <img src="../../common/images/freeHead_03.png" class="img-logo" alt="">
                 <span class="btn-text">开通VIP，免费看此漫画</span>
             </div>
             <div class="info-layBox">
-                <span class="info-time">{{menu.time}}</span>
-                <span class="info-time">更新到{{menu.part}}话</span>
+                <span class="info-time">{{content.time}}</span>
+                <span class="info-time">{{content.update}}</span>
             </div>
         </section>
         <div class="list-box">
             <ul class="list">
-                <li class="lis" v-for="list in menu.partData">
-                    <a class="lia">{{list}}</a>
+                <li class="lis" v-for="list in updateList">
+                    <a class="lia" v-if="list > 0">{{list}}</a>
                 </li>
                 <a class="list-btn">大人，查看更多目录</a>
             </ul>
@@ -23,7 +23,7 @@
             <h2>骚年们都在看</h2>
             <ul class="re-item" id="re-item">
                 <li class="re-item-li" v-cloak v-for="(value,index) in menu.item">
-                    <router-link :to="{path: '/comic/'+ index + '/menu'}" >					
+                    <router-link :to="{path: '/comic/'+ index + '/menu'}">
                         <div class="img-cov">
                             <img :src="value.pic" class="r-img" alt="">
                         </div>
@@ -33,7 +33,7 @@
                         </div>
                     </router-link>
                 </li>
-            </ul> 
+            </ul>
         </section>
         <!--底部-->
         <div class="footer">
@@ -45,80 +45,36 @@
                 </div>
                 <a class="btn-ok">开始阅读</a>
             </div>
-        </div>   
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        name:'menu',
-        props:{
-            head:{
-                type:Object
+        name: 'menu',
+        props: {
+            content: {
+                type: Object
             }
         },
-        data(){
+        data() {
             return {
-                menu:{}
+                menu: {},
+                updateList: []
             }
         },
-        methods:{
-            menurg(){
-                if(this.$route.path == '/comic/0/menu'){
-                    this.$http.get('/api/000').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.menu = rep.data.menu;
-                        }
-                    });
-                }
-                if(this.$route.path == '/comic/1/menu'){
-                    this.$http.get('/api/001').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.menu = rep.data.menu;
-                        }
-                    });
-                }
-                if(this.$route.path == '/comic/2/menu'){
-                    this.$http.get('/api/002').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.menu = rep.data.menu;
-                        }
-                    });
-                }
-                if(this.$route.path == '/comic/3/menu'){
-                    this.$http.get('/api/003').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.menu = rep.data.menu;
-                        }
-                    });
-                }
-                if(this.$route.path == '/comic/4/menu'){
-                    this.$http.get('/api/004').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.menu = rep.data.menu;
-                        }
-                    });
-                }
-                if(this.$route.path == '/comic/5/menu'){
-                    this.$http.get('/api/005').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.menu = rep.data.menu;
-                        }
-                    });
+        methods: {
+            getupdate() {
+                var num = this.content.update.substring(this.content.update.indexOf('到') + 1, this.content.update.indexOf('话'))
+                this.updateList = []
+                for (let i = 0; i < 9; i++) {
+                    this.updateList.push(num)
+                    num--
                 }
             }
         },
-        created(){
-            this.menurg();
-        },
-        watch:{
-            '$route':'menurg'
+        created() {
+            this.getupdate();
         }
     }
 </script>

@@ -2,32 +2,32 @@
     <div>
         <div class="header">
             <router-link to="/" class="top-btn-back"><i>l</i></router-link>
-            <h1>{{head.name}}</h1>
+            <h1>{{content.title}}</h1>
             <a class="top-btn-search"><i>s</i></a>
             <a class="top-btn-menu" id="top-btn"><i>m</i></a>
         </div>
         <section class="mod-header">
-            <div class="header-cover blur" :style="{background:'url('+head.imgsrc+')'}"></div>
+            <div class="header-cover blur" :style="{background:'url('+content.img+')'}"></div>
             <div class="header-info">
                 <div class="info-img-box">
-                    <img :src="head.imgsrc" alt="">
+                    <img :src="content.img" alt="">
                 </div>
                 <div class="header-info-detail">
                     <ul>
                         <li class="info-title">
-                            <h1>{{head.title}}</h1>
-                            <span class="info-title-grade">{{head.grade}}</span>
+                            <h1>{{content.title}}</h1>
+                            <span class="info-title-grade">{{content.grade}}</span>
                         </li>
                         <li class="header-info-tags">
                             <label>标签：</label>
-                            <span v-for="arr in head.tags">{{arr}}</span>
+                            <span class="mr5" v-for="arr in content.tags">{{arr}}</span>
                         </li>
-                        <li class="header-info-lit">作者：{{head.author}}</li>
+                        <li class="header-info-lit">{{content.author}}</li>
                         <li class="header-info-lit">人气：
-                            <span class="info-num">{{head.num}}亿</span>
+                            <span class="info-num">{{content.number}}</span>
                         </li>
                         <li class="header-info-lit">月票：
-                            <span class="info-num">{{head.month}}</span>
+                            <span class="info-num">{{content.monthTicket}}</span>
                         </li>
                     </ul>
                 </div>
@@ -38,10 +38,10 @@
 
 <script>
     export default {
-        name:'comicHeader',
-        props:{
-            head:{
-                type:Object
+        name: 'comicHeader',
+        props: {
+            content: {
+                type: Object
             }
         }
     }
@@ -206,6 +206,7 @@
                             }
                             span{
                                 padding-left: 0.3rem;
+                                padding-right: 0.3rem;
                                 border-left: 1px solid white;
                                 font-size:0.6rem;
                                 &:nth-of-type(1){

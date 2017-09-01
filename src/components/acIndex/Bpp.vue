@@ -33,7 +33,6 @@
         Recommend('/api/acindex', { req: 1 }).then((res) => {
           if (res.data.isSuccess) {
             this.acindex = res.data.data;
-            console.log(this.acindex,11);
           } else {
             console.log(rep.msg);
           }

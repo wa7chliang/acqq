@@ -1,116 +1,73 @@
 <template>
-    <div>
-        <!--作品详情页-->
-        <section class="mod-detail">
-            <i class="iconfo">r</i>
-            <div class="detail-summary">
-                <p>{{dev.cont}}</p>
-            </div>
-        </section>
-        <!--推荐作品-->
-        <section class="mod-recom">
-            <h2>骚年们都在看</h2>
-            <ul class="re-item" id="re-item">
-                <li class="re-item-li" v-cloak v-for="(value,index) in dev.item">
-					<router-link :to="{path: '/comic/'+ index + '/dev'}" >					
+	<div>
+		<!--作品详情页-->
+		<section class="mod-detail">
+			<i class="iconfo">r</i>
+			<div class="detail-summary">
+				<p>{{content.summary}}</p>
+			</div>
+		</section>
+		<!--推荐作品-->
+		<section class="mod-recom">
+			<h2>骚年们都在看</h2>
+			<ul class="re-item" id="re-item">
+				<li class="re-item-li" v-cloak v-for="(value,index) in dev">
+					<router-link :to="{path: '/comic/'+ index + '/dev'}">
 						<div class="img-cov">
-							<img :src="value.pic" class="r-img" alt="">
+							<img :src="value.cover_url" class="r-img" alt="">
 						</div>
 						<div class="img-cont">
 							<strong class="cont-title">{{value.title}}</strong>
-							<small class="cont-con">{{value.con}}</small>
+							<small class="cont-con">{{value.short_desc}}</small>
 						</div>
-					</router-link>					
-                </li>
-            </ul> 
-        </section>
+					</router-link>
+				</li>
+			</ul>
+		</section>
 
-        <!--底部-->
-        <div class="footer">
-            <div class="footer-box">
-                <div class="left-box">
-                    <a class="foot-btn"></a>
-                    <a class="foot-btn"></a>
-                    <a class="foot-btn"></a>
-                </div>
-                <a class="btn-ok">开始阅读</a>
-            </div>
-        </div>      
-    </div>
+		<!--底部-->
+		<div class="footer">
+			<div class="footer-box">
+				<div class="left-box">
+					<a class="foot-btn"></a>
+					<a class="foot-btn"></a>
+					<a class="foot-btn"></a>
+				</div>
+				<a class="btn-ok">开始阅读</a>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-    export default {
-        name:'dev',
-        props:{
-            head:{
-                type:Object
-            }
-        },
-        data(){
-            return {
-                dev:{}
-            }
-        },
-        created(){
-			this.rg();
-        },
-		methods:{
-			rg(){
-				if(this.$route.path == '/comic/0/dev'){
-					this.$http.get('/api/000').then((rep)=>{
-						rep = rep.body;
-						if(rep.mes == 1){
-							this.dev = rep.data.dev;
-						}
-					});
-				}
-				if(this.$route.path == '/comic/1/dev'){
-					this.$http.get('/api/001').then((rep)=>{
-						rep = rep.body;
-						if(rep.mes == 1){
-							this.dev = rep.data.dev;
-						}
-					});
-				}
-				if(this.$route.path == '/comic/2/dev'){
-					this.$http.get('/api/002').then((rep)=>{
-						rep = rep.body;
-						if(rep.mes == 1){
-							this.dev = rep.data.dev;
-						}
-					});
-				}
-				if(this.$route.path == '/comic/3/dev'){
-					this.$http.get('/api/003').then((rep)=>{
-						rep = rep.body;
-						if(rep.mes == 1){
-							this.dev = rep.data.dev;
-						}
-					});
-				}
-				if(this.$route.path == '/comic/4/dev'){
-					this.$http.get('/api/004').then((rep)=>{
-						rep = rep.body;
-						if(rep.mes == 1){
-							this.dev = rep.data.dev;
-						}
-					});
-				}
-				if(this.$route.path == '/comic/5/dev'){
-					this.$http.get('/api/005').then((rep)=>{
-						rep = rep.body;
-						if(rep.mes == 1){
-							this.dev = rep.data.dev;
-						}
-					});
-				}
+	import Recommend from '../../common/api/recommend';
+
+	export default {
+		name: 'dev',
+		props: {
+			content: {
+				type: Object
+			},
+			id: {
+				type: String
 			}
 		},
-		watch:{
-			'$route':'rg'
+		data() {
+			return {
+				dev: {}
+			}
+		},
+		created() {
+			this.rg();
+		},
+		methods: {
+			rg() {
+				Recommend('/api/recommendList', { num: 3, adpos: 910, comic_id: this.id, t: 1504247586976 }).then((res) => {
+					this.dev = res.data.list.slice(0,3);
+				})
+			}
 		}
-    }
+	}
 </script>
 
 <style lang="less">

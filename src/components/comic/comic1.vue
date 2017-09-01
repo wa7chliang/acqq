@@ -1,97 +1,54 @@
 <template>
     <div>
-        <v-header :head="head"></v-header>
+        <v-header :content="content"></v-header>
         <section class="mod-tab">
             <div class="tab-list">
-                <router-link :to="{path: '/comic/'+ num + '/dev'}" replace class="tab-list-item">详情</router-link>
-                <router-link :to="{path: '/comic/'+ num + '/menu'}" replace class="tab-list-item">目录</router-link>
-                <router-link :to="{path: '/comic/'+ num + '/tall'}" replace class="tab-list-item">评论</router-link>              
+                <router-link :to="{path: '/comic/dev/'+ num}" replace class="tab-list-item">详情</router-link>
+                <router-link :to="{path: '/comic/menu/'+ num}" replace class="tab-list-item">目录</router-link>
+                <router-link :to="{path: '/comic/'+ num + '/tall'}" replace class="tab-list-item">评论</router-link>
             </div>
         </section>
         <keep-alive>
-            <router-view :head="head"></router-view>
+            <router-view :content="content" :id="id"></router-view>
         </keep-alive>
     </div>
 </template>
 
 <script>
     import header from './header';
+    import Recommend from '../../common/api/recommend';
 
     export default {
-        name:'comic1',
-        data(){
+        name: 'comic1',
+        data() {
             return {
-                head:{},
-                num:''
+                num: '',
+                content: {},
+                id: ''
             }
         },
-        methods:{
-            comrg(){
+        methods: {
+            trim(str) { //删除左右两端的空格
+                return str.replace(/(^\s*)|(\s*$)/g, "");
+            },
+            comrg() {
                 var path = this.$route.path;
-                if(path == '/comic/0/dev' || path == '/comic/0/menu' || path == '/comic/0/tall'){
-                    this.$http.get('/api/000').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.head = rep.data.head;
-                            this.num = 0;
-                        }
-                    });                
-                }
-                if(path == '/comic/1/dev' || path == '/comic/1/menu' || path == '/comic/1/tall'){
-                    this.$http.get('/api/001').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.head = rep.data.head;
-                            this.num = 1;
-                        }
-                    });          
-                }
-                if(path == '/comic/2/dev' || path == '/comic/2/menu' || path == '/comic/2/tall'){
-                    this.$http.get('/api/002').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.head = rep.data.head;
-                            this.num = 2;
-                        }
-                    });          
-                }
-                if(path == '/comic/3/dev' || path == '/comic/3/menu' || path == '/comic/3/tall'){
-                    this.$http.get('/api/003').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.head = rep.data.head;
-                            this.num = 3;
-                        }
-                    });          
-                }
-                if(path == '/comic/4/dev' || path == '/comic/4/menu' || path == '/comic/4/tall'){
-                    this.$http.get('/api/004').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.head = rep.data.head;
-                            this.num = 4;
-                        }
-                    });          
-                }
-                if(path == '/comic/5/dev' || path == '/comic/5/menu' || path == '/comic/5/tall'){
-                    this.$http.get('/api/005').then((rep)=>{
-                        rep = rep.body;
-                        if(rep.mes == 1){
-                            this.head = rep.data.head;
-                            this.num = 5;
-                        }
-                    });          
-                }
+                this.id = path.substring(path.lastIndexOf('/') + 1);
+                Recommend('/api/recommendLi', { 'id': this.id }).then((res) => {
+                    this.content = JSON.parse(JSON.stringify(res.data))
+                    this.content.author = this.trim(this.content.author)
+                    this.num = this.id
+                    Recommend('/api/getMonthTicketInfo', { 'id': this.id, t: 1504247586984 }).then((res) => {
+                        this.$set(this.content,'monthTicket',res.data.monthTicket)
+                    })
+                })
             }
         },
-        created(){
+        created() {
             this.comrg();
         },
-        watch:{
-            '$route':'comrg'
-        },
-        components:{
-            "v-header":header
+        components: {
+            "v-header": header
         }
     }
 </script>
