@@ -1,116 +1,69 @@
 <template>
-    <div>
-        <section class="tall-box" id="list">
-            <ul class="tall-list">
-                <li class="tall-item" v-for="(item,index) in tall.item" track-by="$index">
-                    <div class="item-head">
-                        <div class="head-layLeft">
-                            <img src="/static/g.png" class="item-img" alt="">
-                            <div class="head-layBox">
-                                <strong class="item-name">{{item.name}}</strong>
-                                <span class="item-time">{{item.time}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-cont">
-                        <p class="cont">{{item.cont}}</p>
-                    </div>
-                </li>
-                <div class="loading" id="load">嘿咻嘿咻加载中</div>
-            </ul>
-        </section>
-        <section class="tall-footer">
-            <a class="footer-btn">我来说两句</a>
-        </section>
-    </div>
+	<div ref="tall">
+		<section class="tall-box" id="list">
+			<ul class="tall-list">
+				<li class="tall-item" v-for="(item,index) in list" track-by="$index">
+					<div class="item-head">
+						<div class="head-layLeft">
+							<img :src="item.qq_head" class="item-img" alt="">
+							<div class="head-layBox">
+								<strong class="item-name">{{item.nick_name}}</strong>
+								<span class="item-time">{{new Date(item.pub_time * 1000).toLocaleDateString()}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="item-cont">
+						<p class="cont">{{item.content}}</p>
+					</div>
+				</li>
+				<div class="loading" id="load">嘿咻嘿咻加载中</div>
+			</ul>
+		</section>
+		<section class="tall-footer">
+			<a class="footer-btn">我来说两句</a>
+		</section>
+	</div>
 </template>
 
 <script>
-    export default {
-        name:'tall',
-        props:{
-            head:{
-                type:Object
-            }
-        },
-        data(){
-            return {
-                tall:{},
-                num:500
-            }
-        },
-        created(){
-           	var body = document.getElementsByTagName('body')[0];
-			var that = this;
-            function move(){                                       
-				if(body.scrollTop > that.num){
-					for(let i=0;i<8;i++){
-						that.tall.item.push(that.tall.item[i]);
-						that.num +=80;
-						if(that.num > 10000){
-							that.num = 20000;
-							var load = document.getElementById('load');									
-							load.innerHTML = "客官，人家已经没有那个的啦~~";
-						}
-					}
-				}
+	import Recommend from '../../common/api/recommend';
+	export default {
+		name: 'tall',
+		props: {
+			head: {
+				type: Object
+			},
+			id: {
+				type: String
 			}
-            if(this.$route.path == '/comic/0/tall'){
-                this.$http.get('/api/000').then(function(response){		
-					response = response.body;
-                    if(response.mes==1){
-                        this.tall = response.data.tall;
-                        body.addEventListener('touchmove',move);
-					}
-			    });
-            }
-            if(this.$route.path == '/comic/1/tall'){
-                this.$http.get('/api/001').then(function(response){		
-					response = response.body;
-                    if(response.mes==1){
-                        this.tall = response.data.tall;
-                        body.addEventListener('touchmove',move);
-					}
-			    });
-            }
-            if(this.$route.path == '/comic/2/tall'){
-                this.$http.get('/api/002').then(function(response){		
-					response = response.body;
-                    if(response.mes==1){
-                        this.tall = response.data.tall;
-                        body.addEventListener('touchmove',move);
-					}
-			    });
-            }
-            if(this.$route.path == '/comic/3/tall'){
-                this.$http.get('/api/003').then(function(response){		
-					response = response.body;
-                    if(response.mes==1){
-                        this.tall = response.data.tall;
-                        body.addEventListener('touchmove',move);
-					}
-			    });
-            }
-            if(this.$route.path == '/comic/4/tall'){
-                this.$http.get('/api/004').then(function(response){		
-					response = response.body;
-                    if(response.mes==1){
-                        this.tall = response.data.tall;
-                        body.addEventListener('touchmove',move);
-					}
-			    });
-            }
-            if(this.$route.path == '/comic/5/tall'){
-                this.$http.get('/api/005').then(function(response){		
-					response = response.body;
-                    if(response.mes==1){
-                        this.tall = response.data.tall;
-                        body.addEventListener('touchmove',move);
-					}
-			    });
-            }
-        }
-    }
+		},
+		data() {
+			return {
+				tall: {},
+				num: 500,
+				list: [],
+				totalNum: 0, 
+				page: 1,
+			}
+		},
+		methods: {
+			getList() {
+				this.list = []
+				Recommend('/api/getCommentList', { id: this.id, page: this.page }).then((res) =>{
+					this.list = this.list.concat(res.data.data.commentList.slice(0))
+					this.totalNum = res.data.data.totalNum
+				})
+			}
+		},
+		created() {
+			var that = this;
+			this.getList()
+		},
+		mounted() {
+			console.log(document.getElementsByTagName('body')[0].offsetHeight)
+			console.log(this.$refs.tall.offsetHeight)
+		}
+	}
 </script>
 
 <style lang="less">

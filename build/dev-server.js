@@ -86,7 +86,26 @@ apiRoutes.get('/getMonthTicketInfo',(req,res) =>{
     console.log(e);
   })
 })
-
+//获取留言的数目
+apiRoutes.get('/getCommentList', (req,res) =>{
+  var id = req.query.id
+  var url = 'http://m.ac.qq.com/comment/getCommentList/id/' + id
+  axios.get(url, {
+    headers:{
+      referer:'http://m.ac.qq.com/',
+      host: 'm.ac.qq.com'
+    },
+    params: {
+      t:1504532449464,
+      page: req.query.page,
+      pageSize:10
+    }
+  }).then((responent) =>{
+    res.json(responent.data)
+  }).catch((e) =>{
+    console.log(e)
+  })
+})
 
 apiRoutes.get('/acindex',(req,res)=>{
   if(req.query.req == 1) {
@@ -102,47 +121,6 @@ apiRoutes.get('/acindex',(req,res)=>{
   }
 });
 
-apiRoutes.get('/000',(req,res)=>{
-  res.json({
-    mes:1,
-    data:Comic000
-  });
-});
-
-apiRoutes.get('/001',(req,res)=>{
-  res.json({
-    mes:1,
-    data:Comic001
-  });
-});
-
-apiRoutes.get('/002',(req,res)=>{
-  res.json({
-    mes:1,
-    data:Comic002
-  });
-});
-
-apiRoutes.get('/003',(req,res)=>{
-  res.json({
-    mes:1,
-    data:Comic003
-  });
-});
-
-apiRoutes.get('/004',(req,res)=>{
-  res.json({
-    mes:1,
-    data:Comic004
-  });
-});
-
-apiRoutes.get('/005',(req,res)=>{
-  res.json({
-    mes:1,
-    data:Comic005
-  });
-});
 
 app.use('/api',apiRoutes);
 
