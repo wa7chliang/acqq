@@ -96,7 +96,7 @@ apiRoutes.get('/getCommentList', (req,res) =>{
       host: 'm.ac.qq.com'
     },
     params: {
-      t:1504532449464,
+      t: 1504532449464,
       page: req.query.page,
       pageSize:10
     }

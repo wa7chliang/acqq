@@ -5,7 +5,7 @@
             <div class="tab-list">
                 <router-link :to="{path: '/comic/dev/'+ num}" replace class="tab-list-item">详情</router-link>
                 <router-link :to="{path: '/comic/menu/'+ num}" replace class="tab-list-item">目录</router-link>
-                <router-link :to="{path: '/comic/'+ num + '/tall'}" replace class="tab-list-item">评论</router-link>
+                <router-link :to="{path: '/comic/tall/'+ num}" replace class="tab-list-item">评论</router-link>
             </div>
         </section>
         <keep-alive>

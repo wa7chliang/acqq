@@ -16,7 +16,7 @@
 						<p class="cont">{{item.content}}</p>
 					</div>
 				</li>
-				<div class="loading" id="load">嘿咻嘿咻加载中</div>
+				<div class="loading" id="load">{{loaderContent}}</div>
 			</ul>
 		</section>
 		<section class="tall-footer">
@@ -40,19 +40,48 @@
 		data() {
 			return {
 				tall: {},
-				num: 500,
+				loaderContent: '嘿咻嘿咻加载中',
 				list: [],
-				totalNum: 0, 
+				totalNum: 0,
 				page: 1,
+				lastPage: 0,
+				scollHeight: 0,
+				flag: false,
+				last: ''
 			}
 		},
 		methods: {
 			getList() {
-				this.list = []
-				Recommend('/api/getCommentList', { id: this.id, page: this.page }).then((res) =>{
+				var self = this
+				Recommend('/api/getCommentList', { id: this.id, page: this.page }).then((res) => {
 					this.list = this.list.concat(res.data.data.commentList.slice(0))
 					this.totalNum = res.data.data.totalNum
+					this.lastPage = ~~(this.totalNum / 10)
+					this.flag = true
+					if (this.list.length == this.totalNum) this.loaderContent = '客官,人家已经没有那个的啦~~'
 				})
+			},
+			scrollFun() {
+				this.scollHeight = this.$refs.tall.offsetHeight - window.scrollY
+				if (this.scollHeight < 500 && this.list.length < this.totalNum && this.page <= this.lastPage && this.flag) {
+					var debounce = this.debounce(100, this.scrollGetList)
+					debounce()
+				}
+			},
+			scrollGetList() {
+				this.page++
+				console.log(this.page)
+				this.getList()
+			},
+			debounce(idle, action) {
+				var self = this
+				return function () {
+					var ctx = this, args = arguments
+					clearTimeout(self.last)
+					self.last = setTimeout(function () {
+						action.apply(ctx, args)
+					}, idle)
+				}
 			}
 		},
 		created() {
@@ -60,9 +89,16 @@
 			this.getList()
 		},
 		mounted() {
-			console.log(document.getElementsByTagName('body')[0].offsetHeight)
-			console.log(this.$refs.tall.offsetHeight)
+			window.addEventListener('scroll', this.scrollFun)
+		},
+		beforeDestroy() {
+			window.removeEventListener('scroll', this.scrollFun)
 		}
+		// watch: {
+		// 	'scollHeight': function () {
+
+		// 	}
+		// }
 	}
 </script>
 
