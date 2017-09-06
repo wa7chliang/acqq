@@ -14,6 +14,10 @@ Vue.config.productionTip = false
 Vue.use(VueResource);
 Vue.use(Mint);
 
+router.afterEach((to, from, next) => {
+    window.scrollTo(0, 0)
+})
+
 /* eslint-disable no-new */
 new Vue({
   store,
