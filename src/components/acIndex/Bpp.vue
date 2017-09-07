@@ -3,10 +3,10 @@
     <in-header></in-header>
     <in-banner></in-banner>
     <in-content1></in-content1>
-    <in-content2></in-content2>
-    <in-today></in-today>
-    <in-acgvip></in-acgvip>
-    <in-bottom></in-bottom>
+    <in-content2 :acindex="acindex"></in-content2>
+    <in-today :acindex="acindex"></in-today>
+    <in-acgvip :acindex="acindex"></in-acgvip>
+    <in-bottom :acindex="acindex"></in-bottom>
   </div>
 </template>
 
@@ -30,13 +30,19 @@
     },
     methods: {
       getNav() {
-        Recommend('/api/acindex', { req: 1 }).then((res) => {
-          if (res.data.isSuccess) {
-            this.acindex = res.data.data;
-          } else {
-            console.log(rep.msg);
-          }
-        })
+        if (sessionStorage.getItem('acindex')) {
+          this.acindex = JSON.parse(sessionStorage.getItem('acindex'))
+        } else {
+          Recommend('/api/acindex', { req: 1 }).then((res) => {
+            if (res.data.isSuccess) {
+              this.acindex = res.data.data;
+              var txt = JSON.stringify(this.acindex)
+              sessionStorage.setItem('acindex', txt)
+            } else {
+              console.log(rep.msg);
+            }
+          })
+        }
       }
     },
     created() {

@@ -7,7 +7,7 @@
                 <a href="#" class="more"></a>
             </h2>
             <ul class="animation-list" id="animation-list">
-                <li class="animation-list-li" v-for="(arr,index) in item.acgvip">
+                <li class="animation-list-li" v-for="(arr,index) in acindex.acgvip" v-if="acindex">
                     <a href="#" class="animation-list-link">
                         <div class="animation-cover">
                             <img :src="arr.imgsrc" class="cover-img" alt="">
@@ -29,20 +29,18 @@
 <script>
     export default {
         name:'acgvip',
+        props: {
+            acindex: {
+                type: Object
+            }
+        },
         data(){
             return {
                 item:{}
             }
         },
         created(){
-            this.$http.get('/api/acindex?req=1').then((rep)=>{
-                rep = rep.body;
-                if(rep.isSuccess){
-                    this.item = rep.data;
-                } else {
-                    console.log(rep.msg);
-                }
-            });
+
         }
     }
 </script>

@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueResource from 'vue-resource'
 import store from './store/'
 import Mint from 'mint-ui'
 import '../static/css/normalize.css'
@@ -12,7 +11,6 @@ import 'mint-ui/lib/style.css'
 
 Vue.config.productionTip = false
 
-Vue.use(VueResource);
 Vue.use(Mint);
 
 router.afterEach((to, from, next) => {

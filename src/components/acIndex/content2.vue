@@ -7,7 +7,7 @@
                 <a href="#" class="more"></a>
             </h2>
             <ul class="re-item" id="ha-vip">
-                <li class="re-item-li" v-for="(value,index) in item.con2">
+                <li class="re-item-li" v-for="(value,index) in acindex.con2" v-if="acindex">
                     <div class="img-cov">
                         <img :src="value.pic" class="r-img" alt="">
                         <i class="vip-logo"></i>
@@ -38,21 +38,19 @@
 
 <script>
     export default {
-        name:'incontent2',
-        data(){
-            return {
-               item:{}
+        name: 'incontent2',
+        props: {
+            acindex: {
+                type: Object
             }
         },
-        created(){
-            this.$http.get('/api/acindex?req=1').then((rep)=>{
-                rep = rep.body;
-                if(rep.isSuccess){
-                    this.item = rep.data;
-                } else {
-                    console.log(rep.msg);
-                }
-            });
+        data() {
+            return {
+                item: {}
+            }
+        },
+        created() {
+
         }
     }
 </script>

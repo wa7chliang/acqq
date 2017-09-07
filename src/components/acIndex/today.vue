@@ -9,7 +9,7 @@
             <div class="update-area">
                 <aside class="as-img"></aside>
                 <ul class="update-list" id="update-list">
-                    <li class="update-list-li" v-for="(arr,index) in item.today">
+                    <li class="update-list-li" v-for="(arr,index) in acindex.today" v-if="acindex">
                         <a href="#" class="update-list-box">
                             <img :src="arr.imgsrc" class="box-img" alt="">
                             <div class="update-li-com">
@@ -36,20 +36,18 @@
 <script>
     export default {
         name:'today',
+        props: {
+            acindex: {
+                type: Object
+            }
+        },
         data(){
             return {
                 item:{}
             }
         },
         created(){
-            this.$http.get('/api/acindex?req=1').then((rep)=>{
-                rep = rep.body;
-                if(rep.isSuccess){
-                    this.item = rep.data;
-                } else {
-                    console.log(rep.msg);
-                }
-            });
+
         }
     }
 </script>

@@ -7,7 +7,7 @@
                 <a href="#" class="more"></a>
             </h2>
             <ul class="re-item" id="ja-cla">
-                <li class="re-item-li" v-cloak v-for="(value,index) in item">
+                <li class="re-item-li" v-for="(value,index) in item" v-if="item">
                     <div class="img-cov">
                         <img :src="value.pic" class="r-img" alt="">
                     </div>
@@ -25,7 +25,7 @@
                 <a href="#" class="more"></a>
             </h2>
             <ul class="re-item" id="new-acg">
-                <li class="re-item-li" v-for="(value,index) in newitem">
+                <li class="re-item-li" v-for="(value,index) in newitem" v-if="newitem">
                     <div class="img-cov">
                         <img :src="value.pic" class="r-img" alt="">
                     </div>
@@ -63,22 +63,33 @@
 <script>
     export default {
         name: 'bottom',
+        props: {
+            acindex: {
+                type: Object
+            }
+        },
         data() {
             return {
-                item: {},
-                newitem: {}
+                item: '',
+                newitem: ''
+            }
+        },
+        methods: {
+            getList() {
+                if(this.acindex.bottom) {
+                    this.item = this.acindex.bottom.day
+                    this.newitem = this.acindex.bottom.new
+                }
             }
         },
         created() {
-            this.$http.get('/api/acindex?req=1').then((rep) => {
-                rep = rep.body;
-                if (rep.isSuccess) {
-                    this.item = rep.data.bottom.day;
-                    this.newitem = rep.data.bottom.new;
-                } else {
-                    console.log(rep.msg);
-                }
-            });
+            this.getList()
+        },
+        watch: {
+            acindex: function () {
+                this.item = this.acindex.bottom.day
+                this.newitem = this.acindex.bottom.new
+            }
         }
     }
 </script>

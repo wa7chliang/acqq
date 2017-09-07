@@ -40,30 +40,33 @@
 </template>
 
 <script>
-import Swiper from '../../../static/js/swiper-3.4.2.min.js'
-import '../../../static/css/swiper-3.4.2.min.css'
-export default {
-  name: 'inbanner',
-  data(){
-      return {
-          a:true,
-          arr:['分类','排行','条漫','历史']
-      }   
-  },
-  mounted(){
-      this.lunbo();
-  },
-  methods:{
-      lunbo:function(){
-       var mySwiper = new Swiper('.swiper-container',{
-            pagination: '.swiper-pagination',
-            autoplay:5000,
-            loop : true,
-            autoplayDisableOnInteraction : false,
-        });
-      }
-  }
-}
+    import Swiper from '../../../static/js/swiper-3.4.2.min.js'
+    import '../../../static/css/swiper-3.4.2.min.css'
+    export default {
+        name: 'inbanner',
+        data() {
+            return {
+                a: true,
+                arr: ['分类', '排行', '条漫', '历史'],
+                mySwiper: ''
+            }
+        },
+        mounted() {
+            setTimeout(() => {
+                this.lunbo()
+            }, 300)
+        },
+        methods: {
+            lunbo() {
+                this.mySwiper = new Swiper('.swiper-container', {
+                    pagination: '.swiper-pagination',
+                    autoplay: 5000,
+                    loop: true,
+                    autoplayDisableOnInteraction: false
+                });
+            }
+        }
+    }
 </script>
 
 <style lang="less">

@@ -52,9 +52,15 @@
         methods: {
             //使用代理得到腾讯动漫无良推荐内容
             getList() {
-                Recommend('/api/recommendList', { num: 6, adpos: 910, t: 1504079863906 }).then((res) => {
-                    this.recommonList = res.data.list.slice(0);
-                })
+                if (sessionStorage.getItem('recommonList')) {
+                    this.recommonList = JSON.parse(sessionStorage.getItem('recommonList'))
+                } else {
+                    Recommend('/api/recommendList', { num: 6, adpos: 910, t: 1504079863906 }).then((res) => {
+                        this.recommonList = res.data.list.slice(0);
+                        var txt = JSON.stringify(this.recommonList)
+                        sessionStorage.setItem('recommonList', txt)
+                    })
+                }
             },
         },
         data() {
