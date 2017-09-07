@@ -4,7 +4,8 @@ var state = {
     show:false,
     isLogin:'/login',
     username:'wa7chliang',
-    password:'123456'
+    password:'123456',
+    id: '',
 }
 
 const mutations = {

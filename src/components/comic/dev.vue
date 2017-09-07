@@ -41,17 +41,18 @@
 
 <script>
 	import Recommend from '../../common/api/recommend';
+	import { mapGetters } from 'vuex';
 
 	export default {
 		name: 'dev',
 		props: {
 			content: {
 				type: Object
-			},
-			id: {
-				type: String
 			}
 		},
+		computed:mapGetters([
+			'id'
+        ]),
 		data() {
 			return {
 				dev: {}

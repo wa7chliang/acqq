@@ -27,16 +27,18 @@
 
 <script>
 	import Recommend from '../../common/api/recommend';
+	import { mapGetters } from 'vuex';
+	
 	export default {
 		name: 'tall',
 		props: {
 			head: {
 				type: Object
-			},
-			id: {
-				type: String
 			}
 		},
+		computed:mapGetters([
+			'id'
+        ]),
 		data() {
 			return {
 				tall: {},
@@ -64,6 +66,7 @@
 			scrollFun() {
 				this.scollHeight = this.$refs.tall.offsetHeight - window.scrollY
 				if (this.scollHeight < 500 && this.list.length < this.totalNum && this.page <= this.lastPage && this.flag) {
+					this.flag = false
 					var debounce = this.debounce(100, this.scrollGetList)
 					debounce()
 				}
@@ -94,11 +97,6 @@
 		beforeDestroy() {
 			window.removeEventListener('scroll', this.scrollFun)
 		}
-		// watch: {
-		// 	'scollHeight': function () {
-
-		// 	}
-		// }
 	}
 </script>
 

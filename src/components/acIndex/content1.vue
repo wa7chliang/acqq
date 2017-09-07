@@ -49,13 +49,7 @@
                 type: Object
             }
         },
-        computed: mapGetters([
-
-        ]),
         methods: {
-			...mapActions([
-				'liClick'
-			]),
             //使用代理得到腾讯动漫无良推荐内容
             getList() {
                 Recommend('/api/recommendList', { num: 6, adpos: 910, t: 1504079863906 }).then((res) => {

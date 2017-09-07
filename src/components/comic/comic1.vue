@@ -9,7 +9,7 @@
             </div>
         </section>
         <keep-alive>
-            <router-view :content="content" :id="id"></router-view>
+            <router-view :content="content"></router-view>
         </keep-alive>
     </div>
 </template>
@@ -17,29 +17,32 @@
 <script>
     import header from './header';
     import Recommend from '../../common/api/recommend';
+    import { mapGetters } from 'vuex';
 
     export default {
         name: 'comic1',
         data() {
             return {
                 num: '',
-                content: {},
-                id: ''
+                content: {}
             }
         },
+        computed:mapGetters([
+			'id'
+        ]),
         methods: {
             trim(str) { //删除左右两端的空格
                 return str.replace(/(^\s*)|(\s*$)/g, "");
             },
             comrg() {
                 var path = this.$route.path;
-                this.id = path.substring(path.lastIndexOf('/') + 1);
+                this.$store.state.mutations.id = path.substring(path.lastIndexOf('/') + 1);              
                 Recommend('/api/recommendLi', { 'id': this.id }).then((res) => {
                     this.content = JSON.parse(JSON.stringify(res.data))
                     this.content.author = this.trim(this.content.author)
                     this.num = this.id
                     Recommend('/api/getMonthTicketInfo', { 'id': this.id, t: 1504247586984 }).then((res) => {
-                        this.$set(this.content,'monthTicket',res.data.monthTicket)
+                        this.$set(this.content, 'monthTicket', res.data.monthTicket)
                     })
                 })
             }
