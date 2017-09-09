@@ -9,7 +9,7 @@
             <ul class="re-item" id="ha-vip">
                 <li class="re-item-li" v-for="(value,index) in acindex.con2" v-if="acindex">
                     <div class="img-cov">
-                        <img :src="value.pic" class="r-img" alt="">
+                        <img v-lazy="value.pic" class="r-img" alt="">
                         <i class="vip-logo"></i>
                     </div>
                     <div class="img-cont">

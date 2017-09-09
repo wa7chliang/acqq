@@ -7,9 +7,15 @@ import store from './store/'
 import Mint from 'mint-ui'
 import '../static/css/normalize.css'
 import 'mint-ui/lib/style.css'
+import VueLazyload from 'vue-lazyload'
 
 
 Vue.config.productionTip = false
+
+Vue.use(VueLazyload, {
+  loading: require('../static/loader.png')
+})
+
 
 Vue.use(Mint);
 

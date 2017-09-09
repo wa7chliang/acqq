@@ -9,7 +9,7 @@
                 <li class="re-item-li" v-for="(value,index) in recommonList">
                     <router-link :to="{path: '/comic/dev/'+ value.id}">
                         <div class="img-cov">
-                            <img :src="value.cover_url" class="r-img" alt="">
+                            <img v-lazy="value.cover_url" class="r-img" alt="">
                         </div>
                         <div class="img-cont">
                             <strong class="cont-title">{{value.title}}</strong>

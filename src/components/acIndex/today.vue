@@ -11,7 +11,7 @@
                 <ul class="update-list" id="update-list">
                     <li class="update-list-li" v-for="(arr,index) in acindex.today" v-if="acindex">
                         <a href="#" class="update-list-box">
-                            <img :src="arr.imgsrc" class="box-img" alt="">
+                            <img v-lazy="arr.imgsrc" class="box-img" alt="">
                             <div class="update-li-com">
                                 <strong class="com-title">{{arr.title}}</strong>
                                 <small class="artist-late">作者：{{arr.artist}}</small>

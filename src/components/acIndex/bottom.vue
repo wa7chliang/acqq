@@ -9,7 +9,7 @@
             <ul class="re-item" id="ja-cla">
                 <li class="re-item-li" v-for="(value,index) in item" v-if="item">
                     <div class="img-cov">
-                        <img :src="value.pic" class="r-img" alt="">
+                        <img v-lazy="value.pic" class="r-img" alt="">
                     </div>
                     <div class="img-cont">
                         <strong class="cont-title">{{value.title}}</strong>
@@ -27,7 +27,7 @@
             <ul class="re-item" id="new-acg">
                 <li class="re-item-li" v-for="(value,index) in newitem" v-if="newitem">
                     <div class="img-cov">
-                        <img :src="value.pic" class="r-img" alt="">
+                        <img v-lazy="value.pic" class="r-img" alt="">
                     </div>
                     <div class="img-cont">
                         <strong class="cont-title">{{value.title}}</strong>

@@ -10,7 +10,7 @@
                 <li class="animation-list-li" v-for="(arr,index) in acindex.acgvip" v-if="acindex">
                     <a href="#" class="animation-list-link">
                         <div class="animation-cover">
-                            <img :src="arr.imgsrc" class="cover-img" alt="">
+                            <img v-lazy="arr.imgsrc" class="cover-img" alt="">
                             <div class="cover-dark"></div>
                             <i class="btn-play"></i>
                         </div>
