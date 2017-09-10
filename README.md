@@ -28,11 +28,8 @@ npm run dev
 
 ### 图片展示
 
-![1.gif](https://github.com/wa7chliang/acqq/blob/master/gitimg/show01.gif)
+![1.gif](https://github.com/wa7chliang/acqq/blob/master/gitimg/1.gif)
 
-![2.gif](https://github.com/wa7chliang/acqq/blob/master/gitimg/show02.gif)
-
-![3.gif](https://github.com/wa7chliang/acqq/blob/master/gitimg/show03.gif)
 
 ### 更新
 
