@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="header">
-            <router-link to="/" class="top-btn-back"><i>l</i></router-link>
+            <div class="top-btn-back" @click="back"><i>l</i></div>
             <h1>{{content.title}}</h1>
             <a class="top-btn-search"><i>s</i></a>
             <a class="top-btn-menu" id="top-btn"><i>m</i></a>
@@ -42,6 +42,11 @@
         props: {
             content: {
                 type: Object
+            }
+        },
+        methods: {
+            back() {
+                this.$router.back()
             }
         }
     }

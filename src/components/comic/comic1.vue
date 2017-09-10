@@ -1,17 +1,19 @@
 <template>
-    <div>
-        <v-header :content="content"></v-header>
-        <section class="mod-tab">
-            <div class="tab-list">
-                <router-link :to="{path: '/comic/dev/'+ num}" replace class="tab-list-item">详情</router-link>
-                <router-link :to="{path: '/comic/menu/'+ num}" replace class="tab-list-item">目录</router-link>
-                <router-link :to="{path: '/comic/tall/'+ num}" replace class="tab-list-item">评论</router-link>
-            </div>
-        </section>
-        <keep-alive>
-            <router-view :content="content"></router-view>
-        </keep-alive>
-    </div>
+    <transition name="slide">
+        <div>
+            <v-header :content="content"></v-header>
+            <section class="mod-tab">
+                <div class="tab-list">
+                    <router-link :to="{path: '/comic/dev/'+ num}" replace class="tab-list-item">详情</router-link>
+                    <router-link :to="{path: '/comic/menu/'+ num}" replace class="tab-list-item">目录</router-link>
+                    <router-link :to="{path: '/comic/tall/'+ num}" replace class="tab-list-item">评论</router-link>
+                </div>
+            </section>
+            <keep-alive>
+                <router-view :content="content"></router-view>
+            </keep-alive>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -27,8 +29,8 @@
                 content: {}
             }
         },
-        computed:mapGetters([
-			'id'
+        computed: mapGetters([
+            'id'
         ]),
         methods: {
             trim(str) { //删除左右两端的空格
@@ -36,7 +38,7 @@
             },
             comrg() {
                 var path = this.$route.path;
-                this.$store.state.mutations.id = path.substring(path.lastIndexOf('/') + 1);              
+                this.$store.state.mutations.id = path.substring(path.lastIndexOf('/') + 1);
                 Recommend('/api/recommendLi', { 'id': this.id }).then((res) => {
                     this.content = JSON.parse(JSON.stringify(res.data))
                     this.content.author = this.trim(this.content.author)
@@ -94,4 +96,12 @@
           }
       }
   }
+
+  .slide-enter-active, .slide-leave-active{
+      transition: all .3s
+  }
+  .slide-enter, .slide-leave-to{
+      transform: translate3d(100%, 0, 0);
+  }
+
 </style>
