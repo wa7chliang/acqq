@@ -1,7 +1,7 @@
 <template>
   <div class="acindex">
     <in-header></in-header>
-    <in-banner></in-banner>
+    <in-banner :state="state"></in-banner>
     <in-content1></in-content1>
     <in-content2 :acindex="acindex"></in-content2>
     <in-today :acindex="acindex"></in-today>
@@ -25,7 +25,8 @@
     name: 'acindex',
     data() {
       return {
-        acindex: {}
+        acindex: {},
+        state: 0
       }
     },
     methods: {
@@ -46,7 +47,12 @@
       }
     },
     created() {
+      Recommend('/api/index').then((res) => {
+        this.state = res.data.state
+      })      
       this.getNav();
+    },
+    beforeCreate() {
     },
     components: {
       'in-header': header,

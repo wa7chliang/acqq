@@ -48,9 +48,6 @@
             return {
                 item: {}
             }
-        },
-        created() {
-
         }
     }
 </script>

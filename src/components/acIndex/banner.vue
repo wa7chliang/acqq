@@ -27,6 +27,11 @@
   import Recommend from '../../common/api/recommend'    
   export default {
     name: 'inbanner',
+    props: {
+      state: {
+        type: Number
+      }
+    },
     data() {
       return {
         a: true,
@@ -34,9 +39,6 @@
         mySwiper: '',
         bannerList: []
       }
-    },
-    created() {
-      this.getBanner()
     },
     mounted() {
       setTimeout(() => {
@@ -61,6 +63,13 @@
     filters: {
       pic_href: function(value) {
         return value?'/comic/dev/' + value: 'javascript: void(0);'
+      }
+    },
+    watch: {
+      'state': function (newNum) {
+        if (newNum === 1) {
+          this.getBanner()
+        }
       }
     }
   }
