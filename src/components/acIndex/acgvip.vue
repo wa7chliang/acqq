@@ -7,7 +7,7 @@
                 <a href="#" class="more"></a>
             </h2>
             <ul class="animation-list" id="animation-list">
-                <li class="animation-list-li" v-for="(arr,index) in acindex.acgvip" v-if="acindex">
+                <li class="animation-list-li" v-for="(arr,index) in acindex.acgvip" :key="index" v-if="acindex">
                     <a href="#" class="animation-list-link">
                         <div class="animation-cover">
                             <img v-lazy="arr.imgsrc" class="cover-img" alt="">

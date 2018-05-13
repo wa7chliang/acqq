@@ -1,4 +1,3 @@
-import jsonp from '../js/jsonp';
 import axios from 'axios';
 
 export default function Recommend(url,data) {
