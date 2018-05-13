@@ -2,33 +2,15 @@
     <div>
         <section class="banner-menu">
             <div class="banner-list-box swiper-container">
-                <ul class="banner-list swiper-wrapper">
-                    <li class="banner-list-li swiper-slide">
-                        <img class="banner-img" src="../../common/images/0.jpg" alt="">
-                    </li>
-                    <li class="banner-list-li swiper-slide">
-                        <img class="banner-img" src="../../common/images/1.jpg" alt="">
-                    </li>
-                    <li class="banner-list-li swiper-slide">
-                        <img class="banner-img" src="../../common/images/2.jpg" alt="">
-                    </li>
-                    <li class="banner-list-li swiper-slide">
-                        <img class="banner-img" src="../../common/images/3.jpg" alt="">
-                    </li>
-                    <li class="banner-list-li swiper-slide">
-                        <img class="banner-img" src="../../common/images/4.jpg" alt="">
+                <ul class="banner-list swiper-wrapper" v-if="bannerList">
+                    <li class="banner-list-li swiper-slide" v-for="(value, index) in bannerList" :key="index" v-cloak>
+                        <a :href="value.pic_href | pic_href"><img class="banner-img" :src="value.imgSrc" alt=""></a>
                     </li>
                 </ul>
-                <ul class="swiper-pagination">
-                    <li class="swiper-pagination-bullet swiper-pagination-bullet-active"></li>
-                    <li class="swiper-pagination-bullet"></li>
-                    <li class="swiper-pagination-bullet"></li>
-                    <li class="swiper-pagination-bullet"></li>
-                    <li class="swiper-pagination-bullet"></li>
-                </ul>
+                <ul class="swiper-pagination"></ul>
             </div>
             <div class="banner-nav" id="banner-nav">
-                <li class="nav-item" v-for="(value,index) in arr" v-cloak>
+                <li class="nav-item" v-for="(value,index) in arr" :key="index" v-cloak>
                     <a href="#" class="nav-item-li">
                         <i :class="{'item-icon':true,'ass':index==0,'rank':index==1,'cart':index==2,'his':index==3}"></i>
                         <span class="name">{{value}}</span>
@@ -40,33 +22,48 @@
 </template>
 
 <script>
-    import Swiper from '../../../static/js/swiper-3.4.2.min.js'
-    import '../../../static/css/swiper-3.4.2.min.css'
-    export default {
-        name: 'inbanner',
-        data() {
-            return {
-                a: true,
-                arr: ['分类', '排行', '条漫', '历史'],
-                mySwiper: ''
-            }
-        },
-        mounted() {
-            setTimeout(() => {
-                this.lunbo()
-            }, 300)
-        },
-        methods: {
-            lunbo() {
-                this.mySwiper = new Swiper('.swiper-container', {
-                    pagination: '.swiper-pagination',
-                    autoplay: 5000,
-                    loop: true,
-                    autoplayDisableOnInteraction: false
-                });
-            }
-        }
+  import Swiper from '../../../static/js/swiper-3.4.2.min.js'
+  import '../../../static/css/swiper-3.4.2.min.css'
+  import Recommend from '../../common/api/recommend'    
+  export default {
+    name: 'inbanner',
+    data() {
+      return {
+        a: true,
+        arr: ['分类', '排行', '条漫', '历史'],
+        mySwiper: '',
+        bannerList: []
+      }
+    },
+    created() {
+      this.getBanner()
+    },
+    mounted() {
+      setTimeout(() => {
+          this.lunbo()
+      }, 300)
+    },
+    methods: {
+      lunbo() {
+        this.mySwiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            autoplay: 5000,
+            loop: true,
+            autoplayDisableOnInteraction: false
+        });
+      },
+      getBanner() {
+        Recommend('/api/banner').then((res) => {
+          this.bannerList = res.data
+        })
+      }
+    },
+    filters: {
+      pic_href: function(value) {
+        return value?'/comic/dev/' + value: 'javascript: void(0);'
+      }
     }
+  }
 </script>
 
 <style lang="less">

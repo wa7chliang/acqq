@@ -75,6 +75,23 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           console.log(e);
         })
       })
+      // 使用爬虫获取首页详细信息
+      apiRoutes.get('/api/banner', (req, res) => {
+        var url = 'http://m.ac.qq.com'
+        axios.get(url).then((responent) => {
+          var $ = cheerio.load(responent.data)
+          var list = []
+          $('.banner-list li').each(function (item) {
+            let obj = {}
+            let pic = $(this)
+            let pic_href = pic.find('a').attr('href').substring(pic.find('a').attr('href').lastIndexOf('/')+1)
+            obj.pic_href = pic_href.length == 6?pic_href : ''
+            obj.imgSrc = pic.find('img').attr('src')
+            list.push(obj)
+          })
+          res.json(list)          
+        })
+      })
       //使用爬虫获取详情页面详细信息
       apiRoutes.get('/api/recommendLi',(req,res) =>{
         var url = 'http://m.ac.qq.com/comic/index/id/'+ req.query.id;
