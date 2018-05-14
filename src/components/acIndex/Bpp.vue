@@ -2,7 +2,7 @@
   <div class="acindex">
     <in-header></in-header>
     <in-banner :state="state"></in-banner>
-    <in-content1></in-content1>
+    <in-content1 :state="state"></in-content1>
     <in-content2 :acindex="acindex"></in-content2>
     <in-today :acindex="acindex"></in-today>
     <in-acgvip :acindex="acindex"></in-acgvip>

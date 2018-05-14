@@ -84,6 +84,17 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           res.json({state: 1})
         })
       })
+      // 使用爬虫获取每日一推信息
+      apiRoutes.get('/api/dayrec', (req, res) => {
+        var $ = cheerio.load(indexMsg)
+        var obj = {}
+        let pic_href = $('.light-comic-recommend').find('a').eq(0).attr('href')
+        obj.pic_href = pic_href.substring(pic_href.lastIndexOf('/')+1)
+        obj.imgSrc = $('.light-comic-recommend').find('img').attr('src')
+        obj.title = $('.light-comic-recommend').find('.text').text()
+        obj.artist = $('.light-comic-recommend').find('.artist').text()
+        res.json(obj)        
+      })
       // 使用爬虫获取首页详细信息
       apiRoutes.get('/api/banner', (req, res) => {
         var $ = cheerio.load(indexMsg)

@@ -6,7 +6,7 @@
                 <a href="#" class="more"></a>
             </h2>
             <ul class="re-item" id="re-item">
-                <li class="re-item-li" v-for="(value,index) in recommonList">
+                <li class="re-item-li" v-for="(value,index) in recommonList" :key="index">
                     <router-link :to="{path: '/comic/dev/'+ value.id}">
                         <div class="img-cov">
                             <img v-lazy="value.cover_url" class="r-img" alt="">
@@ -26,12 +26,12 @@
                 <a class="more"></a>
             </h2>
             <div class="day-rec-box">
-                <a href="#" class="img-box">
-                    <img src="../../common/images/dayRec.jpg" class="box-img" alt="">
-                </a>
-                <a href="#" class="rec-title">
-                    <span class="text">我男友是林黛玉</span>
-                    <small class="artist">作者：糖小兔</small>
+                <router-link :to="'/comic/dev/' + dayRec.pic_href" class="img-box">
+                    <img :src="dayRec.imgSrc" class="box-img" alt="">
+                </router-link>
+                <a class="rec-title">
+                    <span class="text">{{ dayRec.title }}</span>
+                    <small class="artist">{{ dayRec.artist }}</small>
                 </a>
             </div>
         </section>
@@ -45,32 +45,50 @@
     export default {
         name: 'incontent1',
         props: {
-            acindex: {
-                type: Object
-            }
+					acindex: {
+						type: Object
+					},
+					state: {
+						type: Number
+					}
         },
         methods: {
             //使用代理得到腾讯动漫无良推荐内容
             getList() {
-                if (sessionStorage.getItem('recommonList')) {
-                    this.recommonList = JSON.parse(sessionStorage.getItem('recommonList'))
-                } else {
-                    Recommend('/api/recommendList', { num: 6, adpos: 910, t: 1504079863906 }).then((res) => {
-                        this.recommonList = res.data.list.slice(0);
-                        var txt = JSON.stringify(this.recommonList)
-                        sessionStorage.setItem('recommonList', txt)
-                    })
-                }
+							if (sessionStorage.getItem('recommonList')) {
+								this.recommonList = JSON.parse(sessionStorage.getItem('recommonList'))
+							} else {
+								// 1504079863906
+								Recommend('/api/recommendList', { num: 6, adpos: 910, t: new Date().getTime() }).then((res) => {
+									this.recommonList = res.data.list.slice(0);
+									var txt = JSON.stringify(this.recommonList)
+									sessionStorage.setItem('recommonList', txt)
+								})
+							}
             },
+            // 获取每日一推信息
+            getDayRec() {
+							Recommend('/api/dayrec').then((res) => {
+								this.dayRec = res.data
+							})
+            }
         },
         data() {
-            return {
-                recommonList: []
-            }
+					return {
+						recommonList: [],
+						dayRec: {}
+					}
         },
         created() {
             this.getList();
-        }
+				},
+				watch: {
+					'state': function (newNum) {
+						if (newNum === 1) {
+							this.getDayRec()
+						}
+					}
+				}
     }
 </script>
 

@@ -4,7 +4,7 @@
             <div class="banner-list-box swiper-container">
                 <ul class="banner-list swiper-wrapper" v-if="bannerList">
                     <li class="banner-list-li swiper-slide" v-for="(value, index) in bannerList" :key="index" v-cloak>
-                        <a :href="value.pic_href | pic_href"><img class="banner-img" :src="value.imgSrc" alt=""></a>
+                        <router-link :to="value.pic_href | pic_href"><img class="banner-img" :src="value.imgSrc" alt=""></router-link>
                     </li>
                 </ul>
                 <ul class="swiper-pagination"></ul>
@@ -62,7 +62,7 @@
     },
     filters: {
       pic_href: function(value) {
-        return value?'/comic/dev/' + value: 'javascript: void(0);'
+        return value?'/comic/dev/' + value: ''
       }
     },
     watch: {
