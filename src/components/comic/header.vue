@@ -20,7 +20,7 @@
                         </li>
                         <li class="header-info-tags">
                             <label>标签：</label>
-                            <span class="mr5" v-for="arr in content.tags">{{arr}}</span>
+                            <span class="mr5" v-for="(arr,index) in content.tags" :key="index">{{arr}}</span>
                         </li>
                         <li class="header-info-lit">{{content.author}}</li>
                         <li class="header-info-lit">人气：
