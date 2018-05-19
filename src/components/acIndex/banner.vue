@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="banner-menu">
-            <swiper class="banner-list-box swiper-container" :options="swiperOption" ref="mySwiper" v-if="bannerList">
+            <swiper class="banner-list-box swiper-container" :options="swiperOption" ref="mySwiper" v-if="bannerList.length">
 							<swiper-slide class="banner-list-li swiper-slide" v-for="(value, index) in bannerList" :key="index" v-cloak>
 								<router-link :to="value.pic_href | pic_href"><img class="banner-img" :src="value.imgSrc" alt=""></router-link>
 							</swiper-slide>
@@ -35,6 +35,7 @@
         a: true,
         arr: ['分类', '排行', '条漫', '历史'],
         swiperOption: {
+					loop: true,
 					pagination: {
 						el: '.swiper-pagination'
 					},
