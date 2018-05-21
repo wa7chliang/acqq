@@ -1,21 +1,21 @@
 <template>
     <div>
-        <section class="banner-menu">
-            <swiper class="banner-list-box swiper-container" :options="swiperOption" ref="mySwiper" v-if="bannerList.length">
-							<swiper-slide class="banner-list-li swiper-slide" v-for="(value, index) in bannerList" :key="index" v-cloak>
-								<router-link :to="value.pic_href | pic_href"><img class="banner-img" :src="value.imgSrc" alt=""></router-link>
-							</swiper-slide>
-							<div class="swiper-pagination" slot="pagination"></div>
-            </swiper>
-            <div class="banner-nav" id="banner-nav">
-                <li class="nav-item" v-for="(value,index) in arr" :key="index" v-cloak>
-                    <a href="#" class="nav-item-li">
-                        <i :class="{'item-icon':true,'ass':index==0,'rank':index==1,'cart':index==2,'his':index==3}"></i>
-                        <span class="name">{{value}}</span>
-                    </a>
-                </li>
-            </div>
-        </section>
+			<section class="banner-menu">
+				<swiper class="banner-list-box swiper-container" :options="swiperOption" ref="mySwiper" v-if="bannerList.length">
+					<swiper-slide class="banner-list-li swiper-slide" v-for="(value, index) in bannerList" :key="index" v-cloak>
+						<router-link :to="value.pic_href | pic_href"><img class="banner-img" :src="value.imgSrc" alt=""></router-link>
+					</swiper-slide>
+					<div class="swiper-pagination" slot="pagination"></div>
+				</swiper>
+				<div class="banner-nav" id="banner-nav">
+						<li class="nav-item" v-for="(value,index) in arr" :key="index" v-cloak>
+								<a href="#" class="nav-item-li">
+										<i :class="{'item-icon':true,'ass':index==0,'rank':index==1,'cart':index==2,'his':index==3}"></i>
+										<span class="name">{{value}}</span>
+								</a>
+						</li>
+				</div>
+			</section>
     </div>
 </template>
 

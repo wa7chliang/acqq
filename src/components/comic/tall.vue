@@ -2,7 +2,7 @@
 	<div ref="tall">
 		<section class="tall-box" id="list">
 			<ul class="tall-list">
-				<li class="tall-item" v-for="(item,index) in list" track-by="$index">
+				<li class="tall-item" v-for="(item,index) in list" :key="index">
 					<div class="item-head">
 						<div class="head-layLeft">
 							<img :src="item.qq_head" class="item-img" alt="">
@@ -73,9 +73,10 @@
 			},
 			scrollGetList() {
 				this.page++
-				console.log(this.page)
+				// console.log(this.page)
 				this.getList()
 			},
+			// 使用节流
 			debounce(idle, action) {
 				var self = this
 				return function () {
