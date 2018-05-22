@@ -204,6 +204,5 @@
     }
     /*//每日一推结束*/
 
-    @import "../../common/less/screen";
 
 </style>

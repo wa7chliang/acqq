@@ -7,7 +7,7 @@
                 <a href="#" class="more"></a>
             </h2>
             <ul class="re-item" id="ha-vip">
-                <li class="re-item-li" v-for="(value,index) in acindex.con2" v-if="acindex">
+                <li class="re-item-li" v-for="(value,index) in acindex.con2" :key="index" v-if="acindex">
                     <div class="img-cov">
                         <img v-lazy="value.pic" class="r-img" alt="">
                         <i class="vip-logo"></i>

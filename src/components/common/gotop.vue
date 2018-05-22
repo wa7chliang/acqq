@@ -1,7 +1,7 @@
 <template>
-  <div class="go-top">
+  <transition name="show" class="go-top">
     <div class="gt-btn" @click="goTop()" v-show="hs"></div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -39,5 +39,11 @@
     position: fixed;
     right: 1rem;
     bottom: 4rem;
+  }
+  .show-enter-active, .show-leave-active{
+      transition: all .3s;
+  }
+  .show-enter, .show-leave-to{
+    transform: translate3d(0, 100%, 0);
   }
 </style>

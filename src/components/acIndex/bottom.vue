@@ -7,7 +7,7 @@
                 <a href="#" class="more"></a>
             </h2>
             <ul class="re-item" id="ja-cla">
-                <li class="re-item-li" v-for="(value,index) in item" v-if="item">
+                <li class="re-item-li" v-for="(value,index) in item" :key="index" v-if="item">
                     <div class="img-cov">
                         <img v-lazy="value.pic" class="r-img" alt="">
                     </div>
@@ -25,7 +25,7 @@
                 <a href="#" class="more"></a>
             </h2>
             <ul class="re-item" id="new-acg">
-                <li class="re-item-li" v-for="(value,index) in newitem" v-if="newitem">
+                <li class="re-item-li" v-for="(value,index) in newitem" :key="index" v-if="newitem">
                     <div class="img-cov">
                         <img v-lazy="value.pic" class="r-img" alt="">
                     </div>

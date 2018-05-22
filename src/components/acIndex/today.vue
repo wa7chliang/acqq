@@ -9,7 +9,7 @@
             <div class="update-area">
                 <aside class="as-img"></aside>
                 <ul class="update-list" id="update-list">
-                    <li class="update-list-li" v-for="(arr,index) in acindex.today" v-if="acindex">
+                    <li class="update-list-li" v-for="(arr,index) in acindex.today" :key="index" v-if="acindex">
                         <a href="#" class="update-list-box">
                             <img v-lazy="arr.imgsrc" class="box-img" alt="">
                             <div class="update-li-com">

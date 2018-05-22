@@ -66,7 +66,6 @@
             background: #F5F5EE;
         }
         box-sizing: border-box;
-        font-size: 10px;
         width: 100%;
         /*//头部开始*/
         .header{
@@ -243,5 +242,4 @@
 
     }
     
-    @import "../../common/less/screen";
 </style>

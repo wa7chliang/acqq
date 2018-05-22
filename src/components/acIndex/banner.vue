@@ -165,5 +165,4 @@
 		}
 	}
 	/*//banner部分结束*/
-	@import "../../common/less/screen";
 </style>

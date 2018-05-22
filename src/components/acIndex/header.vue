@@ -228,5 +228,4 @@ export default {
     /*//导航菜单结束*/
 
     }
-    @import "../../common/less/screen";
 </style>
