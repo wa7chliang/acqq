@@ -38,6 +38,7 @@ npm run dev
 * 使用axios替换vue-resource node服务器代理腾讯动漫接口数据,node简单爬虫抓取详情页信息
 * 使用sessionStorage对首屏数据进行存储,减少了大量axjx请求
 * 对首屏使用图片懒加载
+* 使用vuex实现全局音乐播放器功能
 
 ### 计划
 * 使用前后端分离模式重构此项目
