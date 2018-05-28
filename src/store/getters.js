@@ -13,5 +13,16 @@ export default {
   },
   id: function(state) {
     return state.id;
+  },
+  // 播放器的数据
+  isControl: state => state.isControl,
+  playing: state => state.playing,
+  fullScreen: state => state.fullScreen,
+  playlist: state => state.playlist,
+  sequenceList: state => state.sequenceList,
+  mode: state => state => state.mode,
+  currentIndex: state => state.currentIndex,
+  currentSong: (state) => {
+    return state.playlist[state.currentIndex] || {}   //getters可以充当计算属性
   }
 };
